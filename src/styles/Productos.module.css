@@ -1,0 +1,19 @@
+.grid {
+  display: grid;
+  grid-template-areas:
+    "add pro"
+    "upd pro";
+  grid-template-columns: 1fr 2fr;
+}
+
+.add {
+  grid-area: add;
+}
+
+.update {
+  grid-area: upd;
+}
+
+.products {
+  grid-area: pro;
+}
