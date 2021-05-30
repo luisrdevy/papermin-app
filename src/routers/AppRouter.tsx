@@ -11,25 +11,73 @@ import Productos from "../pages/Productos";
 import Vender from "../pages/Vender";
 import Ventas from "../pages/Ventas";
 
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import { Button } from "@material-ui/core";
+
 const Router: FC = () => {
   const { user } = useUser();
   const store = useStore();
+
   return (
     <BrowserRouter>
-      <header style={{ display: "flex" }}>
-        {store && (
-          <p>
-            <b>{store.name}</b> <span>{store.slogan}</span>
-          </p>
-        )}
-        <Link to="/">Home</Link>
-        <Link to="/vender">Vender</Link>
-        <Link to="/ventas">Ventas</Link>
-        <Link to="/productos">Productos</Link>
-        <Link to="/ajustes">Ajustes</Link>
-        {user ? <UserMinimal /> : <Link to="/login">Login</Link>}
-      </header>
-      <hr />
+      <AppBar position="static">
+        <Toolbar>
+          <Grid
+            justify="space-between"
+            alignItems="center"
+            container
+          >
+            <Grid item>
+              <Typography variant="h6">
+                {store ? 
+                  <>
+                    <b>
+                      <Link to="/" style={{color: 'inherit', textDecoration: 'inherit', marginRight: '1rem'}}>
+                        {store.name}
+                      </Link>
+                    </b>
+                    <span>{store.slogan}</span>
+                  </>
+                : <b>
+                    <Link to="/" style={{color: 'inherit', textDecoration: 'inherit', marginRight: '1rem'}}>
+                      Papermin
+                    </Link>
+                  </b>
+              }
+              </Typography>
+            </Grid>
+            <Grid item>
+              <Grid alignItems="center" container>
+                <Grid item>
+                  <Link to="/vender" style={{color: 'inherit', textDecoration: 'inherit', marginRight: '2rem'}}>
+                    <Button color="inherit">Vender</Button>
+                  </Link>
+                  <Link to="/ventas" style={{color: 'inherit', textDecoration: 'inherit', marginRight: '2rem'}}>
+                    <Button color="inherit">Ventas</Button>
+                  </Link>
+                  <Link to="/productos" style={{color: 'inherit', textDecoration: 'inherit', marginRight: '2rem'}}>
+                    <Button color="inherit">Productos</Button>
+                  </Link>
+                  <Link to="/ajustes" style={{color: 'inherit', textDecoration: 'inherit', marginRight: '2rem'}}>
+                    <Button color="inherit">Ajustes</Button>
+                  </Link>
+                </Grid>
+                <Grid item>
+                  <div>
+                    {user ? <UserMinimal /> : <Link to="/login" style={{color: 'inherit', textDecoration: 'inherit', marginRight: '2rem'}}>
+                        <Button color="inherit">Login</Button>
+                      </Link>}
+                  </div>
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Toolbar>
+      </AppBar>
       <Route exact path="/" component={() => <Home />} />
       <Route
         exact

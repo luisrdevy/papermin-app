@@ -2,6 +2,7 @@ import { useState } from "react";
 import ProductForm from "../components/ProductForm";
 import { ProductType, useProducts } from "../context/ProductsContext";
 import classes from "../styles/Productos.module.css";
+import Button from '@material-ui/core/Button';
 
 const Productos = () => {
   const { products, addProduct, updateProduct } = useProducts();
@@ -41,9 +42,9 @@ const Productos = () => {
                 <p>
                   {name} - ${price}
                 </p>
-                <button onClick={() => setEditProduct(products[i])}>
-                  edit
-                </button>
+                <Button variant="outlined" color="primary" onClick={() => setEditProduct(products[i])}>
+                  Edit
+                </Button>
               </div>
             ))}
         </section>

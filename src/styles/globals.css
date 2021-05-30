@@ -9,3 +9,9 @@
 body {
   font-family: "Inter", sans-serif;
 }
+
+.profile_picture{
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+}
