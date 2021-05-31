@@ -1,4 +1,4 @@
-import { FC, memo } from "react";
+import { FC, memo, useState } from "react";
 import { BrowserRouter, Link, Redirect, Route } from "react-router-dom";
 import { useStore } from "../context/StoreContext";
 import { useUser } from "../context/UserContext";
@@ -11,33 +11,133 @@ import Productos from "../pages/Productos";
 import Vender from "../pages/Vender";
 import Ventas from "../pages/Ventas";
 
-const Router: FC = ({ children }) => {
+import {
+  AppBar,
+  Drawer,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemIcon,
+  makeStyles,
+  Toolbar,
+  IconButton,
+  Typography,
+  Button,
+} from "@material-ui/core";
+
+import {
+  AccountBalanceWallet,
+  Settings,
+  ShoppingCart,
+  List as ListIcon,
+  Home as HomeIcon,
+  Menu,
+} from "@material-ui/icons";
+
+const useStyles = makeStyles((theme) => ({
+  list: {
+    width: 250,
+  },
+  title: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  link: {
+    color: "#fff",
+    textDecoration: "none",
+    flexGrow: 1,
+  },
+  listLink: {
+    textDecoration: "none",
+    flexGrow: 1,
+    color: theme.palette.text.primary,
+  },
+}));
+
+const Router: FC = () => {
+  const classes = useStyles();
   const { user } = useUser();
   const store = useStore();
+  const [openDrawer, setOpenDrawer] = useState(false);
   return (
     <BrowserRouter>
-      <header
-        style={{
-          display: "flex",
-          padding: "1rem",
-          justifyContent: "space-evenly",
-          alignItems: "center",
-        }}
-      >
-        {store && (
-          <p>
-            <b>{store.name}</b>
-            <br /> <span>{store.slogan}</span>
-          </p>
-        )}
-        <Link to="/">Home</Link>
-        <Link to="/vender">Vender</Link>
-        <Link to="/ventas">Ventas</Link>
-        <Link to="/productos">Productos</Link>
-        <Link to="/ajustes">Ajustes</Link>
-        {user ? <UserMinimal /> : <Link to="/login">Login</Link>}
-      </header>
-      <hr />
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton
+            onClick={() => setOpenDrawer(!openDrawer)}
+            edge="start"
+            className={classes.menuButton}
+            color="inherit"
+            aria-label="menu"
+          >
+            <Menu />
+          </IconButton>
+          {store && (
+            <div className={classes.title}>
+              <Typography variant="subtitle1">{store.name}</Typography>
+              <Typography variant="subtitle2">{store.slogan}</Typography>
+            </div>
+          )}
+          {user ? (
+            <UserMinimal />
+          ) : (
+            <>
+              <div className={classes.title}></div>
+              <Button color="inherit">
+                <Link className={classes.link} to="/login">
+                  Comenzar
+                </Link>
+              </Button>
+            </>
+          )}
+        </Toolbar>
+      </AppBar>
+      <Drawer open={openDrawer} onClose={() => setOpenDrawer(false)}>
+        <List className={classes.list} onClick={() => setOpenDrawer(false)}>
+          <Link to="/" className={classes.listLink}>
+            <ListItem button>
+              <ListItemIcon>
+                <HomeIcon />
+              </ListItemIcon>
+              <ListItemText primary="Home" />
+            </ListItem>
+          </Link>
+          <Link to="/vender" className={classes.listLink}>
+            <ListItem button>
+              <ListItemIcon>
+                <ShoppingCart />
+              </ListItemIcon>
+              <ListItemText primary="Vender" />
+            </ListItem>
+          </Link>
+          <Link to="/ventas" className={classes.listLink}>
+            <ListItem button>
+              <ListItemIcon>
+                <AccountBalanceWallet />
+              </ListItemIcon>
+              <ListItemText primary="Ventas" />
+            </ListItem>
+          </Link>
+          <Link to="/productos" className={classes.listLink}>
+            <ListItem button>
+              <ListItemIcon>
+                <ListIcon />
+              </ListItemIcon>
+              <ListItemText primary="Productos" />
+            </ListItem>
+          </Link>
+          <Link to="/ajustes" className={classes.listLink}>
+            <ListItem button>
+              <ListItemIcon>
+                <Settings />
+              </ListItemIcon>
+              <ListItemText primary="Ajustes" />
+            </ListItem>
+          </Link>
+        </List>
+      </Drawer>
       <main
         style={{
           margin: "1rem auto",
