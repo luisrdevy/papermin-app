@@ -1,7 +1,7 @@
 import { createContext, FC, memo, useContext } from "react";
 import { firestore } from "../services/firebase";
-import { useUser } from "./UserContext";
 import { useCollectionData } from "react-firebase-hooks/firestore";
+import { useStore } from "./StoreContext";
 
 export type ProductType = {
   id: string;
@@ -26,9 +26,9 @@ const ProductsContext = createContext<ProductsContextType>({
 });
 
 const ProductsComponent: FC = ({ children }) => {
-  const { user } = useUser();
+  const store = useStore();
   const ref = firestore.collection("products");
-  const query = ref.where("store", "==", user ? user.uid : "x");
+  const query = ref.where("store", "==", store ? store.id : "x");
   const [products] = useCollectionData<ProductType>(query, {
     idField: "id",
   });

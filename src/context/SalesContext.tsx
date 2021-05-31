@@ -12,7 +12,7 @@ type Sale = {
   total: number;
 };
 
-type PreSale = {
+export type PreSale = {
   products: ProductType[];
   store: string;
   total: number;
@@ -32,8 +32,8 @@ const SalesComponent: FC = ({ children }) => {
   const store = useStore();
   const query = firestore
     .collection("sales")
-    .where("store", "==", store?.id ?? "")
-    .orderBy("createdAt", "desc");
+    .where("store", "==", store ? store.id : "x");
+
   const [sales] = useCollectionData<Sale>(query, {
     idField: "id",
   });
@@ -41,7 +41,7 @@ const SalesComponent: FC = ({ children }) => {
   const addSale = (presale: PreSale) => {
     firestore.collection("sales").add({
       ...presale,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
     });
   };
 
