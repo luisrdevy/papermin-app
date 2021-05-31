@@ -1,3 +1,4 @@
+import { CssBaseline } from "@material-ui/core";
 import { ProductsProvider } from "./context/ProductsContext";
 import { SalesProvider } from "./context/SalesContext";
 import { StoreProvider } from "./context/StoreContext";
@@ -10,6 +11,7 @@ const App = () => {
       <StoreProvider>
         <ProductsProvider>
           <SalesProvider>
+            <CssBaseline />
             <AppRouter />
           </SalesProvider>
         </ProductsProvider>
