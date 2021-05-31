@@ -4,7 +4,7 @@ import { firestore, firebase } from "../services/firebase";
 import { ProductType } from "./ProductsContext";
 import { useStore } from "./StoreContext";
 
-type Sale = {
+export type Sale = {
   id: string;
   products: ProductType[];
   store: string;
