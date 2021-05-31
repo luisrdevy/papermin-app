@@ -1,42 +1,79 @@
-import { SyntheticEvent, useRef } from "react";
+import { Button, Grid, Paper, TextField, Typography } from "@material-ui/core";
+import { SyntheticEvent, useState } from "react";
 import { useStore } from "../context/StoreContext";
 import { firestore } from "../services/firebase";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  card: {
+    padding: theme.spacing(2),
+  },
+  textField: {
+    marginRight: theme.spacing(1),
+    marginBottom: theme.spacing(2),
+    width: "18rem",
+  },
+  form: {
+    display: "flex",
+    alignItems: "flex-end",
+    flexWrap: "wrap",
+    marginTop: theme.spacing(4),
+  },
+  button: {
+    marginBottom: theme.spacing(2),
+  },
+}));
 
 const Ajustes = () => {
+  const classes = useStyles();
   const store = useStore();
-  const storeNameRef = useRef<HTMLInputElement>(null);
-  const storeSloganRef = useRef<HTMLInputElement>(null);
+  const [storeName, setStoreName] = useState(store?.name || "");
+  const [storeSlogan, setStoreSlogan] = useState(store?.slogan || "");
   const handleSubmit = (event: SyntheticEvent) => {
     event.preventDefault();
-    if (!store) return;
+    if (!store || storeName.length < 3 || storeSlogan.length < 3) return;
     const storeRef = firestore.collection("stores").doc(store.id);
     const newStore = {
-      name: storeNameRef.current?.value,
-      slogan: storeSloganRef.current?.value,
+      name: storeName,
+      slogan: storeSlogan,
     };
     storeRef.set({ ...newStore });
   };
   return (
-    <main>
-      <p>Ajustes</p>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="">Store name</label>
-        <input
-          type="text"
-          defaultValue={store?.name}
-          ref={storeNameRef}
-          placeholder="Store name"
-        />
-        <label htmlFor="">Store slogan</label>
-        <input
-          type="text"
-          defaultValue={store?.slogan}
-          ref={storeSloganRef}
-          placeholder="slogan"
-        />
-        <button>save</button>
-      </form>
-    </main>
+    <Grid container>
+      <Grid item xs={12} md={6}>
+        <Paper className={classes.card}>
+          <Typography variant="h4" gutterBottom>
+            Mi papeleria
+          </Typography>
+          <form onSubmit={handleSubmit} className={classes.form}>
+            <TextField
+              className={classes.textField}
+              value={storeName}
+              onChange={(e) => setStoreName(e.target.value)}
+              label="Nombre"
+              variant="outlined"
+            />
+            <TextField
+              className={classes.textField}
+              value={storeSlogan}
+              onChange={(e) => setStoreSlogan(e.target.value)}
+              label="Slogan"
+              variant="outlined"
+            />
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              disableElevation
+              className={classes.button}
+            >
+              Guardar
+            </Button>
+          </form>
+        </Paper>
+      </Grid>
+    </Grid>
   );
 };
 
