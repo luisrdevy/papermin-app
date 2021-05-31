@@ -2,6 +2,24 @@ import { FC, SyntheticEvent, useRef } from "react";
 import type { ProductType } from "../context/ProductsContext";
 import { useUser } from "../context/UserContext";
 
+
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid';
+import Container from '@material-ui/core/Container';
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import Input from '@material-ui/core/Input';
+
+
+
 type ProductFormType = {
   handleProduct: (product: ProductType) => void;
   type: string;
@@ -45,7 +63,29 @@ const ProductForm: FC<ProductFormType> = ({
   };
 
   return (
-    <form onSubmit={submitHandler} ref={formRef}>
+    <Grid direction="column" container spacing={0} alignItems="center" justify="center">
+      <form  onSubmit={submitHandler} ref={formRef} noValidate autoComplete="off" >
+            {type === "update" && (
+              <div>
+                <label htmlFor="">id</label>
+                <input type="text" value={product?.id} readOnly />
+              </div>
+            )}
+              <TextField id="outlined-basic" variant="outlined" label="name" fullWidth 
+                inputRef={nameRef} defaultValue={product?.name} style={{ margin: 8 }} />
+              <TextField id="outlined-basic" variant="outlined" label="Description" fullWidth 
+                inputRef={descriptionRef} defaultValue={product?.description} style={{ margin: 8 }} />
+              <TextField id="outlined-basic" variant="outlined" label="provider" fullWidth 
+                inputRef={providerRef} defaultValue={product?.provider} style={{ margin: 8 }} />
+              <TextField id="outlined-basic" variant="outlined" label="price" fullWidth 
+                inputRef={priceRef} defaultValue={product?.price} style={{ margin: 8 }} />
+              <TextField id="outlined-basic" variant="outlined" label="cost" fullWidth 
+                inputRef={costRef}  defaultValue={product?.cost} style={{ margin: 8 }} />
+              <Button variant="contained" color="primary" type="submit">{type}</Button>
+      </form>
+    </Grid>
+    
+   /* <form onSubmit={submitHandler} ref={formRef}>
       {type === "update" && (
         <div>
           <label htmlFor="">id</label>
@@ -77,7 +117,7 @@ const ProductForm: FC<ProductFormType> = ({
         <input type="text" ref={costRef} defaultValue={product?.cost} />
       </div>
       <button>{type}</button>
-    </form>
+    </form>  */
   );
 };
 
