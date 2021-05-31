@@ -131,8 +131,8 @@ const Ventas = () => {
                     disablePadding
                     className={classes.nested}
                   >
-                    {selected.products.map((product) => (
-                      <ListItem>
+                    {selected.products.map((product, i) => (
+                      <ListItem key={i}>
                         <ListItemText
                           primary={product.name}
                           secondary={`$${product.price} MXN`}
