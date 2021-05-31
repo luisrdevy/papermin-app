@@ -1,30 +1,79 @@
-import { SyntheticEvent, useRef } from "react";
+import { SyntheticEvent, useState } from "react";
 import { useUser } from "../context/UserContext";
 import { firestore } from "../services/firebase";
 
+import { Paper, Typography, TextField, Button } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  card: {
+    padding: theme.spacing(2),
+  },
+  textField: {
+    marginRight: theme.spacing(1),
+    marginBottom: theme.spacing(2),
+    width: "18rem",
+  },
+  form: {
+    display: "flex",
+    alignItems: "flex-end",
+    flexWrap: "wrap",
+    marginTop: theme.spacing(4),
+  },
+  button: {
+    marginBottom: theme.spacing(2),
+  },
+}));
+
 const CreateStore = () => {
+  const classes = useStyles();
   const { user } = useUser();
-  const storeNameRef = useRef<HTMLInputElement>(null);
-  const storeSloganRef = useRef<HTMLInputElement>(null);
+  const [storeName, setStoreName] = useState("");
+  const [storeSlogan, setStoreSlogan] = useState("");
   const handleSubmit = (event: SyntheticEvent) => {
     event.preventDefault();
-    if (!user) return;
+    if (!user || storeName.length < 3 || storeSlogan.length < 3) return;
     const storeRef = firestore.collection("stores").doc(user.uid);
+
     const store = {
-      name: storeNameRef.current?.value,
-      slogan: storeSloganRef.current?.value,
+      name: storeName,
+      slogan: storeSlogan,
     };
     storeRef.set({ ...store });
   };
   return (
-    <main>
-      <p>CreateStore</p>
-      <form onSubmit={handleSubmit}>
-        <input type="text" ref={storeNameRef} placeholder="Store name" />
-        <input type="text" ref={storeSloganRef} placeholder="slogan" />
-        <button>save</button>
-      </form>
-    </main>
+    <>
+      <Paper className={classes.card}>
+        <Typography variant="h4" gutterBottom>
+          Crea una papeleria
+        </Typography>
+        <form onSubmit={handleSubmit} className={classes.form}>
+          <TextField
+            className={classes.textField}
+            value={storeName}
+            onChange={(e) => setStoreName(e.target.value)}
+            label="Nombre"
+            variant="outlined"
+          />
+          <TextField
+            className={classes.textField}
+            value={storeSlogan}
+            onChange={(e) => setStoreSlogan(e.target.value)}
+            label="Slogan"
+            variant="outlined"
+          />
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            disableElevation
+            className={classes.button}
+          >
+            Crear
+          </Button>
+        </form>
+      </Paper>
+    </>
   );
 };
 
