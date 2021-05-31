@@ -5,14 +5,15 @@ const UserMinimal = () => {
   return (
     <div>
       {user && (
-        <div onClick={logout}>
+        <div onClick={logout} style={{ display: "flex", alignItems: "center" }}>
+          <span>{user.displayName}</span>
           <img
             src={user.photoURL || ""}
             alt={user.displayName || ""}
             width="50"
             height="50"
+            style={{ borderRadius: "50%", marginLeft: ".5rem" }}
           />
-          <span>{user.displayName}</span>
         </div>
       )}
     </div>

@@ -16,10 +16,18 @@ const Router: FC = () => {
   const store = useStore();
   return (
     <BrowserRouter>
-      <header style={{ display: "flex" }}>
+      <header
+        style={{
+          display: "flex",
+          padding: "1rem",
+          justifyContent: "space-evenly",
+          alignItems: "center",
+        }}
+      >
         {store && (
           <p>
-            <b>{store.name}</b> <span>{store.slogan}</span>
+            <b>{store.name}</b>
+            <br /> <span>{store.slogan}</span>
           </p>
         )}
         <Link to="/">Home</Link>
