@@ -121,7 +121,7 @@ const Ventas = () => {
                     )}
                   />
                 </ListItem>
-                <ListItem onClick={() => setOpenProducts(!openProducts)}>
+                <ListItem onClick={() => setOpenProducts(!openProducts)} button>
                   <ListItemText primary="Productos" />
                   {openProducts ? <ExpandLess /> : <ExpandMore />}
                 </ListItem>
