@@ -4,6 +4,17 @@ import { useSales } from "../context/SalesContext";
 import type { PreSale } from "../context/SalesContext";
 import { useStore } from "../context/StoreContext";
 
+import {
+  Typography,
+  Button,
+  Grid,
+  Container,
+  TextField,
+  Card,
+  CardActions,
+  CardContent,
+} from "@material-ui/core";
+
 const Vender = () => {
   const { products } = useProducts();
   const { addSale } = useSales();
@@ -35,24 +46,44 @@ const Vender = () => {
 
   return (
     <main>
-      <p>Vender</p>
-      <form onSubmit={addProductToShoppingBag}>
-        <div>
-          <label htmlFor="">Product id</label>
-          <input
-            type="text"
-            value={selected}
-            onChange={(e) => setSelected(e.target.value)}
-          />
-        </div>
-        <button>add</button>
-      </form>
-      <pre>{JSON.stringify(shoppingBag, null, 4)}</pre>
-      <section>
-        <button>Limpiar</button>
-        <button onClick={handlePaid}>Pagar</button>
-      </section>
+      <Typography variant="h4">Carrito de compras</Typography>
+        <Container >
+        <Grid container spacing={3}>
+          <Grid item sm={7}>
+            <form  onSubmit={addProductToShoppingBag} noValidate autoComplete="off" >
+                  
+                    <TextField id="outlined-basic" variant="outlined" label="Product ID" fullWidth 
+                      value={selected} onChange={(e) => setSelected(e.target.value)} style={{ margin: 10 }} />
+                    <Button variant="contained" color="primary" type="submit">Add</Button>
+            </form>
+          </Grid>
+          <Grid item sm={5}>
+            <Card>
+              <CardContent >
+                <Typography variant="h5" component="h2" align="center">
+                  Productos
+                </Typography>
+                <Typography >Producto - precio</Typography>
+                <Typography color="textSecondary" >
+                {shoppingBag &&
+                  shoppingBag.map(({ name, price }, i) => (
+                  <div key={i}>
+                    <p>
+                      {name} - ${price}
+                    </p>
+                  </div>
+                ))}
+                </Typography>
+              </CardContent>
+              <CardActions >
+                <Button variant="contained" color="primary" onClick={handlePaid}>Finalizar compra</Button>
+              </CardActions>
+            </Card>
+          </Grid>
+        </Grid>
+      </Container>
     </main>
+
   );
 };
 
