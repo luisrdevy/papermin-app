@@ -2,22 +2,11 @@ import { FC, SyntheticEvent, useRef } from "react";
 import type { ProductType } from "../context/ProductsContext";
 import { useUser } from "../context/UserContext";
 
-
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
-import Container from '@material-ui/core/Container';
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import Input from '@material-ui/core/Input';
-
+import {
+  Button,
+  TextField,
+  Grid
+} from '@material-ui/core';
 
 
 type ProductFormType = {
