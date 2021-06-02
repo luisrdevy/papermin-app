@@ -1,12 +1,9 @@
 import { useState } from "react";
-import ProductForm from "../components/ProductForm";
 import { ProductType, useProducts } from "../context/ProductsContext";
-import classes from "../styles/Productos.module.css";
 
 import {
   Button,
   Grid,
-  Container,
   Table,
   TableBody,
   TableCell,
@@ -14,87 +11,103 @@ import {
   TableHead,
   TableRow,
   Paper,
-} from '@material-ui/core';
+  Typography,
+  makeStyles,
+} from "@material-ui/core";
+import AddProductForm from "../components/AddProductForm";
+import EditProductForm from "../components/EditproductForm";
+
+const useStyles = makeStyles((theme) => ({
+  card: {
+    padding: theme.spacing(2),
+    marginTop: theme.spacing(2),
+  },
+  table: {
+    marginTop: theme.spacing(2),
+  },
+  subtitle: {
+    marginBottom: theme.spacing(3),
+  },
+  rightButton: {
+    marginRight: theme.spacing(1),
+  },
+}));
 
 const Productos = () => {
-  const { products, addProduct, updateProduct } = useProducts();
+  const classes = useStyles();
+  const { products } = useProducts();
   const [editProduct, setEditProduct] = useState<ProductType | null>(null);
-
 
   return (
     <main>
-
-        <section id="editProduct" className={classes.update}>
-          {editProduct && (
-            <>
-              <h4>Edit product</h4>
-              <ProductForm
-                product={editProduct}
-                handleProduct={updateProduct}
-                type="update"
-                setEditProduct={setEditProduct}
-              />
-            </>
-          )}
-        </section>
-
-      <Container>
-        <Grid container style={{padding: '3rem 1rem'}}>
-          <Grid item sm={8}>
-
-          <TableContainer component={Paper}>
-          <Table className={classes.table} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>codigo de barras</TableCell>
-                <TableCell align="right">Producto</TableCell>
-                <TableCell align="right">Precio</TableCell>
-                <TableCell align="right">Costo</TableCell>
-                <TableCell align="right"></TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {products && products.map(({ name, cost, price }, i) => (
-                <TableRow key={i}>
-                  <TableCell component="th" scope="row"></TableCell>
-                  <TableCell align="right">{name}</TableCell>
-                  <TableCell align="right">{price}</TableCell>
-                  <TableCell align="right">{cost}</TableCell>
-                 {/* <TableCell align="right">{row.carbs}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell> */}
-              <TableCell align="right">
-              <Button variant="outlined" 
-                color="primary" 
-                onClick={() => setEditProduct(products[i])}>
-                  Edit
-                </Button>
-                
-              </TableCell>
-                
+      <Grid container spacing={3}>
+        <Grid item xs={12} md={8}>
+          <TableContainer component={Paper} className={classes.table}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>ID</TableCell>
+                  <TableCell>Producto</TableCell>
+                  <TableCell align="right">Precio</TableCell>
+                  <TableCell align="right">Costo</TableCell>
+                  <TableCell align="right">Acciones</TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-          </Grid>
-
-            
-          <Grid item sm={4} container spacing={0} direction="column" alignItems="center" justify="center">
-
-            <section id="addProduct" className={classes.add}>
-              <h4>Add Product</h4>
-              <ProductForm
-                product={null}
-                handleProduct={addProduct}
-                type="add"
-                setEditProduct={setEditProduct}
-              />
-            </section>
-
-            
-          </Grid>
+              </TableHead>
+              <TableBody>
+                {products &&
+                  products.map((p) => (
+                    <TableRow key={p.id}>
+                      <TableCell>{p.id}</TableCell>
+                      <TableCell>{p.name}</TableCell>
+                      <TableCell align="right">${p.price} MXN</TableCell>
+                      <TableCell align="right">${p.cost} MXN</TableCell>
+                      <TableCell align="right">
+                        <Button
+                          variant="outlined"
+                          color="primary"
+                          className={classes.rightButton}
+                        >
+                          Eliminar
+                        </Button>
+                        <Button
+                          variant="contained"
+                          disableElevation
+                          color="primary"
+                          onClick={() => setEditProduct(p)}
+                        >
+                          Editar
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
         </Grid>
-      </Container>
+
+        <Grid item xs={12} md={4}>
+          <Paper className={classes.card}>
+            {editProduct ? (
+              <>
+                <Typography variant="h5" className={classes.subtitle}>
+                  Editar producto
+                </Typography>
+                <EditProductForm
+                  editProduct={editProduct}
+                  setEditProduct={setEditProduct}
+                />
+              </>
+            ) : (
+              <>
+                <Typography variant="h5" className={classes.subtitle}>
+                  Agregar producto
+                </Typography>
+                <AddProductForm />
+              </>
+            )}
+          </Paper>
+        </Grid>
+      </Grid>
     </main>
   );
 };
