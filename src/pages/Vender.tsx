@@ -49,6 +49,10 @@ const Vender = () => {
     setShoppingBag([...shoppingBag]);
   }
 
+  const clearTicket = () => {
+    setShoppingBag([]);
+  }
+
   return (
     <main>
       <Typography variant="h4">Carrito de compras</Typography>
@@ -74,16 +78,17 @@ const Vender = () => {
                   shoppingBag.map(({ name, price}, index) => (
                   <div key={index}>
                     <p>
-
                     {index+1}. {name} - ${price} 
-                    </p>
-                    <Button variant="contained" color="primary" onClick={() => removeItemSelected(index)}>Delete</Button>
+                    <Button color="secondary" onClick={
+                      () => removeItemSelected(index)
+                    }>Delete</Button>
+                    </p>                  
                   </div>                
                 ))}
                 </Typography>
               </CardContent>
               <CardActions >
-                <Button variant="contained" color="primary" onClick={handlePaid}>Limpiar</Button>
+                <Button variant="contained" color="primary" onClick={clearTicket}>Limpiar</Button>
                 <Button variant="contained" color="primary" onClick={handlePaid}>Finalizar compra</Button>
               </CardActions>
             </Card>
