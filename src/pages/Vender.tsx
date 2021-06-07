@@ -44,6 +44,11 @@ const Vender = () => {
     addSale(presale);
   };
 
+  const removeItemSelected = (index: number) => {
+    shoppingBag.splice(index, 1);
+    setShoppingBag([...shoppingBag]);
+  }
+
   return (
     <main>
       <Typography variant="h4">Carrito de compras</Typography>
@@ -66,16 +71,19 @@ const Vender = () => {
                 <Typography >Producto - precio</Typography>
                 <Typography color="textSecondary" >
                 {shoppingBag &&
-                  shoppingBag.map(({ name, price }, i) => (
-                  <div key={i}>
+                  shoppingBag.map(({ name, price}, index) => (
+                  <div key={index}>
                     <p>
-                      {name} - ${price}
+
+                    {index+1}. {name} - ${price} 
                     </p>
-                  </div>
+                    <Button variant="contained" color="primary" onClick={() => removeItemSelected(index)}>Delete</Button>
+                  </div>                
                 ))}
                 </Typography>
               </CardContent>
               <CardActions >
+                <Button variant="contained" color="primary" onClick={handlePaid}>Limpiar</Button>
                 <Button variant="contained" color="primary" onClick={handlePaid}>Finalizar compra</Button>
               </CardActions>
             </Card>
