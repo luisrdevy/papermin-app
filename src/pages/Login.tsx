@@ -1,13 +1,14 @@
 import { useUser } from "../context/UserContext";
-
 import { Button, Paper, TextField, Typography, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { useState } from "react";
+import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
+import { auth, uiConfig } from "../services/firebase";
 
 const useStyles = makeStyles((theme) => ({
   card: {
     padding: theme.spacing(2),
-    marginTop: theme.spacing(2),
+    width: "100%",
   },
   vendedor: {
     marginTop: theme.spacing(2),
@@ -31,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Login = () => {
   const classes = useStyles();
-  const { login, vendorLogin, fbLogin } = useUser();
+  const { vendorLogin } = useUser();
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
   const handleVendorLogin = async () => {
@@ -39,34 +40,17 @@ const Login = () => {
   };
   return (
     <>
-      <Typography variant="h4">Iniciar sesion</Typography>
-      <Grid container spacing={3}>
-        <Grid item xs={12} md={6}>
+      <Typography variant="h3" gutterBottom>
+        Iniciar sesion
+      </Typography>
+      <Grid container spacing={3} direction="column" alignItems="center">
+        <Grid item xs={12} md={4} style={{ width: "100%" }}>
           <Paper className={classes.card}>
             <Typography variant="h5">Administrador</Typography>
-            <div className={classes.admin}>
-              <Button
-                className={classes.button}
-                variant="contained"
-                color="secondary"
-                disableElevation
-                onClick={login}
-              >
-                Iniciar sesion con Google
-              </Button>
-              <Button
-                className={classes.button}
-                variant="contained"
-                color="primary"
-                disableElevation
-                onClick={fbLogin}
-              >
-                Iniciar sesion con Facebook
-              </Button>
-            </div>
+            <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={auth} />
           </Paper>
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={4}>
           <Paper className={classes.card}>
             <Typography variant="h5">Vendedor</Typography>
             <div className={classes.vendedor}>
