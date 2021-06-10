@@ -55,6 +55,14 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     color: theme.palette.text.primary,
   },
+  drawerTitles: {
+    width: "100%",
+    maxWidth: 250,
+    textAlign: "center",
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+    padding: theme.spacing(1),
+  },
 }));
 
 const Router: FC = () => {
@@ -76,10 +84,9 @@ const Router: FC = () => {
             <Menu />
           </IconButton>
           {user && store && (
-            <div className={classes.title}>
-              <Typography variant="subtitle1">{store.name}</Typography>
-              <Typography variant="subtitle2">{store.slogan}</Typography>
-            </div>
+            <Typography variant="h6" className={classes.title}>
+              {store.name}
+            </Typography>
           )}
           {user ? (
             <UserMinimal />
@@ -97,6 +104,19 @@ const Router: FC = () => {
       </AppBar>
 
       <Drawer open={openDrawer} onClose={() => setOpenDrawer(false)}>
+        {user && store ? (
+          <div className={classes.drawerTitles}>
+            <Typography variant="h6">{store.name}</Typography>
+            <Typography variant="subtitle1">{store.slogan}</Typography>
+          </div>
+        ) : (
+          <div className={classes.drawerTitles}>
+            <Typography variant="h6">Papermin</Typography>
+            <Typography variant="subtitle1">
+              La forma más fácil de administrar tu papelería
+            </Typography>
+          </div>
+        )}
         <List className={classes.list} onClick={() => setOpenDrawer(false)}>
           <Link to="/" className={classes.listLink}>
             <ListItem button>
