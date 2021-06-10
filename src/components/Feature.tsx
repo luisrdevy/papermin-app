@@ -9,6 +9,7 @@ import { FC } from "react";
 const useStyles = makeStyles({
   root: {
     maxWidth: "100%",
+    textAlign: "center",
   },
 });
 
@@ -25,7 +26,7 @@ const Feature: FC<{ src: string; title: string; description: string }> = ({
         <CardMedia
           component="img"
           alt="Contemplative Reptile"
-          height="140"
+          height="220"
           image={src}
           title={title}
         />

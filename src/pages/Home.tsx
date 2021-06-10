@@ -2,7 +2,6 @@ import { Button, Grid, makeStyles, Typography } from "@material-ui/core";
 import Feature from "../components/Feature";
 import SectionTitle from "../components/SectionTitle";
 import classes from "../styles/Home.module.css";
-//import logo from "../../public/logo512.png";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -58,7 +57,7 @@ const Home = () => {
         </Grid>
         <Grid item xs={12} md={4}>
           <Feature
-            src="/papermin1.png"
+            src="/1.png"
             title="Controla tus inventarios"
             description={
               'Puedes agregar, editar y elminar tus productos de forma sencilla y en tiempo real, evita el robo "hormiga".'
@@ -67,35 +66,35 @@ const Home = () => {
         </Grid>
         <Grid item xs={12} md={4}>
           <Feature
-            src="/papermin1.png"
+            src="/2.png"
             title="Punto de venta"
             description="Atiende a tus clientes de una forma rápida y eficiente con nuestro sistema en tiempo real, compatible con códigos de barras."
           />
         </Grid>
         <Grid item xs={12} md={4}>
           <Feature
-            src="/papermin1.png"
+            src="/3.png"
             title="Administra a tus vendedores"
             description="Elige a las personas que solo podrán utilizar la app para vender, sin modificar otras cuestiones."
           />
         </Grid>
         <Grid item xs={12} md={4}>
           <Feature
-            src="/papermin1.png"
+            src="/4.png"
             title="Reportes"
             description="Descarga los reportes que necesites de las ventas obtenidas y evita malos entendidos."
           />
         </Grid>
         <Grid item xs={12} md={4}>
           <Feature
-            src="/papermin1.png"
+            src="/5.png"
             title="Tus datos siempre seguros"
             description="Toda tu papelería está almacenada en la nube, asi evitarás cualquier perdida de información."
           />
         </Grid>
         <Grid item xs={12} md={4}>
           <Feature
-            src="/papermin1.png"
+            src="/6.png"
             title="Ingresa desde cualquier lugar"
             description="Sin importar en dónde te encuentres y qué dispositivo utilices, Papermin siempre estará contigo 💖."
           />
