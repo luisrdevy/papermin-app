@@ -2,7 +2,6 @@ import { useState } from "react";
 import { ProductType, useProducts } from "../context/ProductsContext";
 
 import {
-  Button,
   Grid,
   Table,
   TableBody,
@@ -13,10 +12,13 @@ import {
   Paper,
   Typography,
   makeStyles,
+  IconButton,
 } from "@material-ui/core";
 import AddProductForm from "../components/AddProductForm";
 import EditProductForm from "../components/EditproductForm";
 import { useUser } from "../context/UserContext";
+import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from "@material-ui/icons/Edit";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -29,14 +31,19 @@ const useStyles = makeStyles((theme) => ({
   subtitle: {
     marginBottom: theme.spacing(3),
   },
-  rightButton: {
+  btn: {
+    marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
+  },
+  icons: {
+    display: "flex",
+    justifyContent: "flex-end",
   },
 }));
 
 const Productos = () => {
   const classes = useStyles();
-  const { products } = useProducts();
+  const { products, deleteProduct } = useProducts();
   const { user } = useUser();
   const [editProduct, setEditProduct] = useState<ProductType | null>(null);
 
@@ -60,30 +67,31 @@ const Productos = () => {
               </TableHead>
               <TableBody>
                 {products &&
-                  products.map((p) => (
+                  products.map((p, i) => (
                     <TableRow key={p.id}>
-                      <TableCell>{p.id}</TableCell>
+                      <TableCell>p-00{i}</TableCell>
                       <TableCell>{p.name}</TableCell>
                       <TableCell>{p.description}</TableCell>
                       <TableCell align="right">${p.price} MXN</TableCell>
                       <TableCell align="right">${p.cost} MXN</TableCell>
                       {user && user.displayName && (
                         <TableCell align="right">
-                          <Button
-                            variant="outlined"
-                            color="primary"
-                            className={classes.rightButton}
-                          >
-                            Eliminar
-                          </Button>
-                          <Button
-                            variant="contained"
-                            disableElevation
-                            color="primary"
-                            onClick={() => setEditProduct(p)}
-                          >
-                            Editar
-                          </Button>
+                          <div className={classes.icons}>
+                            <IconButton
+                              aria-label="delete"
+                              color="primary"
+                              onClick={() => deleteProduct(p.id)}
+                            >
+                              <DeleteIcon />
+                            </IconButton>
+                            <IconButton
+                              aria-label="edit"
+                              color="primary"
+                              onClick={() => setEditProduct(p)}
+                            >
+                              <EditIcon />
+                            </IconButton>
+                          </div>
                         </TableCell>
                       )}
                     </TableRow>

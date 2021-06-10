@@ -17,12 +17,14 @@ type ProductsContextType = {
   products: ProductType[] | undefined;
   addProduct: (product: ProductType) => void;
   updateProduct: (product: ProductType) => void;
+  deleteProduct: (id: string) => void;
 };
 
 const ProductsContext = createContext<ProductsContextType>({
   products: [],
   addProduct: () => {},
   updateProduct: () => {},
+  deleteProduct: () => {},
 });
 
 const ProductsComponent: FC = ({ children }) => {
@@ -44,8 +46,14 @@ const ProductsComponent: FC = ({ children }) => {
     productRef.set({ ...product });
   };
 
+  const deleteProduct = async (id: string) => {
+    await ref.doc(id).delete();
+  };
+
   return (
-    <ProductsContext.Provider value={{ products, addProduct, updateProduct }}>
+    <ProductsContext.Provider
+      value={{ products, addProduct, updateProduct, deleteProduct }}
+    >
       {children}
     </ProductsContext.Provider>
   );
