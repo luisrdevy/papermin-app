@@ -47,7 +47,9 @@ const Ventas = () => {
 
   return (
     <>
-      <Typography variant="h4">Ventas</Typography>
+      <Typography variant="h3" gutterBottom>
+        Ventas
+      </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} md={selected ? 8 : 12}>
           <Paper className={classes.card}>
@@ -67,9 +69,9 @@ const Ventas = () => {
                 </TableHead>
                 <TableBody>
                   {sales &&
-                    sales.map((sale) => (
+                    sales.map((sale, i) => (
                       <TableRow key={sale.id}>
-                        <TableCell>{sale.id}</TableCell>
+                        <TableCell>v-00{i}</TableCell>
                         <TableCell>
                           {formatDistanceToNow(
                             new Date(sale.createdAt.toDate()),

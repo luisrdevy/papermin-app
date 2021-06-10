@@ -49,6 +49,9 @@ const Productos = () => {
 
   return (
     <main>
+      <Typography variant="h3" gutterBottom>
+        Productos
+      </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} md={user && user.displayName ? 8 : 12}>
           <TableContainer component={Paper} className={classes.table}>

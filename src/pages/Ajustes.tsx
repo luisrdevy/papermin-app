@@ -61,6 +61,11 @@ const Ajustes = () => {
   };
   return (
     <Grid container spacing={3}>
+      <Grid item xs={12}>
+        <Typography variant="h3" gutterBottom>
+          Ajustes
+        </Typography>
+      </Grid>
       <Grid item xs={12} md={6}>
         <Paper className={classes.card}>
           <Typography variant="h4" gutterBottom>
@@ -126,7 +131,7 @@ const Ajustes = () => {
               {store &&
                 store.vendors.map((vendor) => (
                   <ListItem key={vendor}>
-                    <ListItemText primary={vendor} secondary="email" />
+                    <ListItemText primary={vendor} secondary="Vendedor" />
                     <Button variant="outlined" color="primary">
                       delete
                     </Button>
