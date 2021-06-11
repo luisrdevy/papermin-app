@@ -19,7 +19,6 @@ const useStyles = makeStyles((theme) => ({
   },
   textField: {
     marginRight: theme.spacing(1),
-    marginBottom: theme.spacing(2),
     width: "18rem",
   },
   form: {
@@ -30,6 +29,12 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     marginBottom: theme.spacing(2),
+  },
+  vendors: {
+    display: "flex",
+    alignItems: "flex-end",
+    marginBottom: theme.spacing(2),
+    marginTop: theme.spacing(2),
   },
 }));
 
@@ -107,21 +112,23 @@ const Ajustes = () => {
             <Typography variant="h6" gutterBottom>
               Agregar nuevo vendedor
             </Typography>
-            <TextField
-              className={classes.textField}
-              label="Email"
-              variant="outlined"
-              value={vendorEmail}
-              onChange={(e) => setVendorEmail(e.target.value)}
-            />
-            <Button
-              onClick={handleAddVendor}
-              variant="contained"
-              color="primary"
-              disableElevation
-            >
-              Agregar
-            </Button>
+            <div className={classes.vendors}>
+              <TextField
+                className={classes.textField}
+                label="Email"
+                variant="outlined"
+                value={vendorEmail}
+                onChange={(e) => setVendorEmail(e.target.value)}
+              />
+              <Button
+                onClick={handleAddVendor}
+                variant="contained"
+                color="primary"
+                disableElevation
+              >
+                Agregar
+              </Button>
+            </div>
           </section>
           <section>
             <Typography variant="h6" gutterBottom>
