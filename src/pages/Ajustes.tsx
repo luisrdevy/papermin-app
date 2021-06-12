@@ -18,11 +18,12 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
   },
   textField: {
-    marginRight: theme.spacing(1),
-    width: "18rem",
+    marginBottom: theme.spacing(2),
+    width: "100%",
   },
   form: {
     display: "flex",
+    justifyContent: "flex-end",
     alignItems: "flex-end",
     flexWrap: "wrap",
     marginTop: theme.spacing(4),
@@ -33,6 +34,8 @@ const useStyles = makeStyles((theme) => ({
   vendors: {
     display: "flex",
     alignItems: "flex-end",
+    justifyContent: "flex-end",
+    flexWrap: "wrap",
     marginBottom: theme.spacing(2),
     marginTop: theme.spacing(2),
   },

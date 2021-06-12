@@ -10,10 +10,15 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     width: "100%",
   },
+  card1: {
+    padding: theme.spacing(2),
+    width: "100%",
+  },
   vendedor: {
     marginTop: theme.spacing(2),
     display: "flex",
     flexWrap: "wrap",
+    justifyContent: "flex-end",
   },
   admin: {
     marginTop: theme.spacing(2),
@@ -43,13 +48,16 @@ const Login = () => {
       <Typography variant="h3" gutterBottom>
         Iniciar sesion
       </Typography>
-      <Grid container spacing={3} direction="column" alignItems="center">
-        <Grid item xs={12} md={4} style={{ width: "100%" }}>
-          <Paper className={classes.card}>
+      <Grid container spacing={3}>
+        <Grid item xs={12} md={4} />
+        <Grid item xs={12} md={4}>
+          <Paper className={classes.card1}>
             <Typography variant="h5">Administrador</Typography>
             <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={auth} />
           </Paper>
         </Grid>
+        <Grid item xs={12} md={4} />
+        <Grid item xs={12} md={4} />
         <Grid item xs={12} md={4}>
           <Paper className={classes.card}>
             <Typography variant="h5">Vendedor</Typography>

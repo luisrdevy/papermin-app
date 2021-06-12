@@ -2,6 +2,7 @@ import { Button, Grid, makeStyles, Typography } from "@material-ui/core";
 import Feature from "../components/Feature";
 import SectionTitle from "../components/SectionTitle";
 import classes from "../styles/Home.module.css";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -20,6 +21,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 const Home = () => {
   const styles = useStyles();
+  const history = useHistory();
+  const handleStart = () => {
+    history.push("/login");
+  };
   return (
     <>
       <div className={classes.hero}>
@@ -33,6 +38,7 @@ const Home = () => {
             variant="contained"
             color="secondary"
             className={styles.button}
+            onClick={handleStart}
           >
             Comenzar
           </Button>
