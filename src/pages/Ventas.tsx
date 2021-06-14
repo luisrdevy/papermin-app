@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useSales } from "../context/SalesContext";
 import type { Sale } from "../context/SalesContext";
 import { formatDistanceToNow } from "date-fns";
+import generatePDF from "../components/TicketPDF";
+import {useStore} from "../context/StoreContext";
 import {
   Typography,
   Table,
@@ -44,6 +46,8 @@ const Ventas = () => {
   const { sales } = useSales();
   const [selected, setSelected] = useState<Sale | null>(null);
   const [openProducts, setOpenProducts] = useState(true);
+  const store = useStore();
+  const storeName = store.name;
 
   return (
     <>
@@ -150,7 +154,8 @@ const Ventas = () => {
                   />
                 </ListItem>
                 <ListItem>
-                  <Button variant="contained" color="primary" disableElevation>
+                  <Button variant="contained" color="primary" disableElevation 
+                    onClick={() => generatePDF(selected.products, selected, storeName)}>
                     Descargar
                   </Button>
                 </ListItem>
