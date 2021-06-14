@@ -23,6 +23,8 @@ import {
 } from "@material-ui/core";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
+import VentasChart from "../components/charts/VentasChart";
+import ProductoChart from "../components/charts/ProductoChart";
 
 const useStyles = makeStyles((theme) => ({
   subtitle: {
@@ -54,6 +56,24 @@ const Ventas = () => {
         Ventas
       </Typography>
       <Grid container spacing={3}>
+        <Grid item xs={12} md={6}>
+          <Paper className={classes.card}>
+            <Typography variant="h6" className={classes.subtitle}>
+              Historial de ventas
+            </Typography>
+            <VentasChart />
+          </Paper>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Paper className={classes.card}>
+            <Typography variant="h6" className={classes.subtitle}>
+              Producto más vendido
+            </Typography>
+            <ProductoChart />
+          </Paper>
+        </Grid>
+      </Grid>
+      <Grid container spacing={3}>
         <Grid item xs={12} md={selected ? 8 : 12}>
           <Paper className={classes.card}>
             <Typography variant="h6" className={classes.subtitle}>
@@ -72,33 +92,40 @@ const Ventas = () => {
                 </TableHead>
                 <TableBody>
                   {sales &&
-                    sales.map((sale, i) => (
-                      <TableRow key={sale.id}>
-                        <TableCell>v-00{i}</TableCell>
-                        <TableCell>
-                          {formatDistanceToNow(
-                            new Date(sale.createdAt.toDate()),
-                            {
-                              addSuffix: true,
-                              includeSeconds: true,
-                            }
-                          )}
-                        </TableCell>
-                        <TableCell align="right">
-                          {sale.products.length}
-                        </TableCell>
-                        <TableCell align="right">{`$${sale.total} MXN`}</TableCell>
-                        <TableCell>
-                          <Button
-                            variant="contained"
-                            disableElevation
-                            onClick={() => setSelected(sale)}
-                          >
-                            Ver
-                          </Button>
-                        </TableCell>
-                      </TableRow>
-                    ))}
+                    sales
+                      .sort((s, t) =>
+                        new Date(s.createdAt.toDate()) >
+                        new Date(t.createdAt.toDate())
+                          ? 1
+                          : 0
+                      )
+                      .map((sale, i) => (
+                        <TableRow key={sale.id}>
+                          <TableCell>v-00{i}</TableCell>
+                          <TableCell>
+                            {formatDistanceToNow(
+                              new Date(sale.createdAt.toDate()),
+                              {
+                                addSuffix: true,
+                                includeSeconds: true,
+                              }
+                            )}
+                          </TableCell>
+                          <TableCell align="right">
+                            {sale.products.length}
+                          </TableCell>
+                          <TableCell align="right">{`$${sale.total} MXN`}</TableCell>
+                          <TableCell>
+                            <Button
+                              variant="contained"
+                              disableElevation
+                              onClick={() => setSelected(sale)}
+                            >
+                              Ver
+                            </Button>
+                          </TableCell>
+                        </TableRow>
+                      ))}
                 </TableBody>
               </Table>
             </TableContainer>
