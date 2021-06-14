@@ -11,7 +11,6 @@ import {
   InputLabel,
   Select,
   Card,
-  CardActions,
   CardContent,
   FormControl,
   MenuItem,
@@ -25,8 +24,11 @@ import DeleteIcon from "@material-ui/icons/Delete";
 
 const useStyles = makeStyles((theme) => ({
   select: {
-    minWidth: 250,
-    marginRight: theme.spacing(2),
+    minWidth: 300,
+
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+    },
   },
   actions: {
     display: "flex",
@@ -34,7 +36,15 @@ const useStyles = makeStyles((theme) => ({
   },
   form: {
     display: "flex",
+    flexWrap: "wrap",
     alignItems: "flex-end",
+  },
+  btn: {
+    marginLeft: theme.spacing(1),
+    [theme.breakpoints.down("xs")]: {
+      marginTop: theme.spacing(1),
+      marginLeft: 0,
+    },
   },
 }));
 
@@ -84,7 +94,7 @@ const Vender = () => {
       </Typography>
 
       <Grid container spacing={3}>
-        <Grid item sm={7}>
+        <Grid item xs={12} md={6}>
           <Card>
             <CardContent>
               <Typography variant="h4" gutterBottom>
@@ -115,6 +125,7 @@ const Vender = () => {
                   color="primary"
                   onClick={addProductToShoppingBag}
                   disableElevation
+                  className={styles.btn}
                 >
                   Agregar
                 </Button>
@@ -122,7 +133,7 @@ const Vender = () => {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item sm={5}>
+        <Grid item xs={12} md={6}>
           <Card>
             <CardContent>
               <Typography variant="h4" gutterBottom>
@@ -147,25 +158,26 @@ const Vender = () => {
                     </ListItem>
                   ))}
               </List>
+              <div className={styles.actions}>
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  onClick={clearTicket}
+                  disableElevation
+                  style={{ marginRight: ".5rem" }}
+                >
+                  Cancelar
+                </Button>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handlePaid}
+                  disableElevation
+                >
+                  Finalizar compra
+                </Button>
+              </div>
             </CardContent>
-            <CardActions className={styles.actions}>
-              <Button
-                variant="outlined"
-                color="primary"
-                onClick={clearTicket}
-                disableElevation
-              >
-                Cancelar
-              </Button>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handlePaid}
-                disableElevation
-              >
-                Finalizar compra
-              </Button>
-            </CardActions>
           </Card>
         </Grid>
       </Grid>
