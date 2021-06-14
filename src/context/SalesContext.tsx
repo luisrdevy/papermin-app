@@ -1,5 +1,6 @@
 import { createContext, FC, memo, useContext } from "react";
 import { useCollectionData } from "react-firebase-hooks/firestore";
+import generatePDF from "../components/TicketPDF";
 import { firestore, firebase } from "../services/firebase";
 import { ProductType } from "./ProductsContext";
 import { useStore } from "./StoreContext";
@@ -43,6 +44,7 @@ const SalesComponent: FC = ({ children }) => {
       ...presale,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
     });
+    generatePDF(presale, store, true);
   };
 
   return (
