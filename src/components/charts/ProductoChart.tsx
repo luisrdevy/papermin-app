@@ -29,6 +29,9 @@ const ProductoChart = () => {
       });
     }
 
+    productsData.sort((a, b) => b.y - a.y);
+    productsData.splice(4);
+
     setData(productsData);
   }, [sales]);
   return (
